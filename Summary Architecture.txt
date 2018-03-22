@@ -1,0 +1,186 @@
+Projeto WPattern.Project C#
+1)-Criar Projecto C# Class Library
+Name Wpattern.WProject
+Browser Folder: ..\WPattern.WProject
+
+Criar Camadas 
+Add New Folder Solution:
+1.Presentation Layer
+2.Hosting Layer
+3.Service Layer
+4.Data Layer
+Project Files
+	Assemblies
+	Configuration
+	Scripts
+		MySql
+		SQL Server
+Tests
+ 
+ Deletar WPattern.Project da Solution e da Pasta Arquitetura_2\WPattern.WProject\
+ Criar as Pastas no Explorer (Visual Studio Não Cria)
+ 
+ Criar o Project Class Library C# -> WPattern.WProject.Data ->  Folder: 4.Data Layer
+ Criar o Project Class Library C# -> WPattern.WProject.Services ->  Folder: 3.Service Layer
+ Criar o Project Unit Test Projet C# -> WPattern.WProject.Tests ->  Folder: Tests
+ 
+ 
+ Copiar DLLs: NLog.dll -> Assemblies  Alterar Propriedade: Copy to Output = Copy Always
+ Copiar Scripst -> MySQL
+ Copiar Scripst -> SQL Server
+ 
+ Adicionar os Arquivos ao Project solution  Add Existing Files em Cada Pasta acima
+ 
+ Criar  o Banco de Dados com os Scripts
+ 
+ Próxima Aula 2)
+ -Criar o Project -> C# Class Library -> WPattern.WProject.Data50 -> 4. Data Layer
+ -Criar o Project -> C# Class Library -> WPattern.WProject.Data6x -> 4. Data Layer
+ 
+ Add New Item -> C# -> Data -> 
+ 
+ ADO .Net Entity Data Model -> Name:  GPVModel
+
+Select Connections and DataBase and Tables (if your wish is not select all Tables)..
+Depois de Criar o Schemma do ADO, alterar os Nomes das Entdades -> Pluralizar conforme a necessidade ....
+Nome da Connection String :  gpvEntities
+Entity Framework 5.0  ou 6.x ?
+Gerar os Dois para Ver as Diferenças
+
+Exemplo: 	TFatTarefa ->  TFatTarefaEntity
+			tSegFuncionalidade - > tSegFuncionalidadeEntity ....
+			...Salvar e rodar o CustomTool para remapear as entidades
+			
+	Criar as Pastas :
+			BO -> Será alterado o Projeto () "public abstract class BaseBO : IValidation"
+			Repository
+			IRepository
+			Utils
+			
+	
+	
+	Dentro da pasta Units:
+		Add New Interface -> IValidation
+			Add New Method -> void Validation();
+Criar Class Abstrata BaseBO
+"public abstract class BaseBO : IValidation"
+ com o méthod virtual
+	public virtual void Validation(){ }
+	
+	Toda vez que eu criar um Business Object -> herdo o BaseBO
+	
+	
+Crio uma Entitate de Examplo TFatTarefaEntity
+ Add new Class -> TFatTarefaEntity -> Folder BO -> Herdo BaseBO - Partial de TFatTarefaEntity no mesmo pacote
+ 
+ Exemplo
+ Alterar o Namespace da Classe "partial" criada na Pasta BO
+ De "namespace WPattern.WProject.Data50.BO" para "namespace WPattern.WProject.Data50"
+ Fazer o import do Namespace "using WPattern.WProject.Data50.BO"
+ ** Não Alterar o Namespace da Entitade Mapeada pelo EntityFramework
+ 
+  Próxima Aula 3)
+  -Teste de conexão
+  
+  Criar Class  TFatTarefateste -> [TestClass]
+  Add metdho TFatTarefaTeste -> [TestMethod]
+  Para as duas conexões
+  
+  Adicionar a DLL. NLog ao projeto de Teste
+  Add. Ref. WPattern.WProjeto.Data50 
+  Add. Ref. WPattern.WProjeto.Data6x 
+  
+  E Realizar conexão
+  Add app.config ao Projeto de Testes
+  Classes de Teste devem ser publica para rodar o Debug de Testes
+  
+  Por Padrão O Entity está configurado para Fazer Lazye Load , ou seja, carrega os dados conforme a necessidade.
+  
+  Adicionar a DLL EntityFramework ao projeto de Teste, Repectivamente EntityFramework 5.0 ou 6x
+ 
+Para o EntityFramework 6x é necessário duas DLLs
+EntityFramework.dll
+EntityFramework.SqlServer  (Acredito que deve  ser com driver desconectado, ou seja, driver de outros fornecedores e Banco de Dados)
+ 
+  Próxima Aula 4)
+  -Implementação dos Repositórios
+	Corrigir
+		Colocar a Classe BaseBO para o Utils
+  
+	Criar Classe IGenericRepository -> Folder: Utils
+	    public interface IGenericRepository<T>: IDisposable where T :BaseBO
+    {
+        IQueryable<T> GetQuery(); //Retornar Dados de Qualquer Conjunto de Querys   
+        IEnumerable<T> GetAll(); //Retornar todos os dados da Entidade   
+        IEnumerable<T> Where(Func<T, bool> where); //Selecioonar os dados
+        T Single(Func<T, bool> where); //Retornar apenas 1, se a condição ter mais de Um Estoura Exception
+        T First();
+        T First(Func<T, bool> where); //Retorna o primeiro de uma consulta
+        void Attach(T entity); //Coloca o Objeto no cache do Entity Framework
+        void Delete(T entity);
+        void Add(T entity);
+        void Update(T entity);
+        void SaveChanges();
+    }
+	
+	Tarefa Criar uma Classe ou projeto o Qual podemos alterar o EntityFramework 5.0 <-> 6.x e vice e versa
+	
+	Criar a Classe GenericaRepository
+	
+	public class GenericRepository<T>: IGenericRepository<T> where T : BaseBO
+	Implementar os Métodos da Classe GenericRepository
+	
+Agora Criar os Repositórios Específicos dentro das pastas IRepository e Repository
+
+IRepository:
+ Add New Interface -> ITFatTarefaRepository;
+
+	using WPattern.WProject.Data6x.Utils;
+	namespace WPattern.WProject.Data6x.IRepository
+	{
+		public interface TFatTarefaRepository : IGenericRepository<tFatTarefaEntity>
+		{
+		}
+	}
+	
+Repository:
+ Add New Class -> TFatTarefaRepository
+ using WPattern.WProject.Data6x.IRepository;
+
+	using WPattern.WProject.Data6x.Utils;
+	namespace WPattern.WProject.Data6x.Repository
+	{
+		public class TFatTarefaRepository : GenericRepository<tFatTarefaEntity>, IFatTarefaRepository
+		{
+			//Consultas e Operações específicas colocaremos aqui
+		}
+	}
+	
+  Testes com Repository:
+        [TestMethod]
+        public void FidAll60()
+        {
+            //gpvEntities6x entities6x = new gpvEntities6x();
+            TFatTarefaRepository tarefaRepo = new TFatTarefaRepository();
+
+            foreach (tFatTarefaEntity tarefa in tarefaRepo.GetAll())
+            {
+                System.Diagnostics.Debug.WriteLine("tarefas 50:" + tarefa.UID_TAREFA + "-" + tarefa.NOME_TAREFA);
+            }
+        }
+		
+	Alterações para Mais Testes:
+		private static IFatTarefaRepository repository {get; set;}
+			
+		//Inicialização dentro dos Testes	
+		[ClassInitialize]	
+		public static SetUp(TestContext testContext)
+		{
+			repository = new TFatTarefaRepository();
+		}
+		
+  Criar os Testes para todos os Métodos (CRUD) e Rodar os Testes
+  
+    Próxima Aula 5)
+	-Criando os demais repositórios
+	

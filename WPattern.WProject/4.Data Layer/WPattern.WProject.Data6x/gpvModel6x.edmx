@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="gpvModel6x.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="claudiaTeste">
+          <Key>
+            <PropertyRef Name="idteste" />
+          </Key>
+          <Property Name="idteste" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nameTeste" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="martiniTeste">
+          <Key>
+            <PropertyRef Name="idteste" />
+          </Key>
+          <Property Name="idteste" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nameTeste" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tFatTarefa">
+          <Key>
+            <PropertyRef Name="UID_TAREFA" />
+          </Key>
+          <Property Name="UID_TAREFA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="COD_PAIS" Type="int" Nullable="false" />
+          <Property Name="USUARIO_ULTIMA_ALTERACAO" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="data_finalizacao" Type="datetime" />
+          <Property Name="data_inicio" Type="datetime" />
+          <Property Name="NOME_TAREFA" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tSegFuncionalidade">
+          <Key>
+            <PropertyRef Name="UID_FUNCIONALIDADE" />
+          </Key>
+          <Property Name="UID_FUNCIONALIDADE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FUN_CHAVE" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="FUN_DES" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tSegPerfil">
+          <Key>
+            <PropertyRef Name="UID_PERFIL" />
+          </Key>
+          <Property Name="UID_PERFIL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PER_DES" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tSegPerfilTelaFuncionalidade">
+          <Key>
+            <PropertyRef Name="UID_PERFIL_TELA_FUNC" />
+          </Key>
+          <Property Name="UID_PERFIL_TELA_FUNC" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="COD_PAIS" Type="int" Nullable="false" />
+          <Property Name="UID_PERFIL" Type="int" Nullable="false" />
+          <Property Name="UID_TELA_FUNC" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tSegTela">
+          <Key>
+            <PropertyRef Name="UID_TELA" />
+          </Key>
+          <Property Name="UID_TELA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TEL_DES_CHAVE" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="TEL_DES" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TEL_DES_URL" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tSegTelaFuncionalidade">
+          <Key>
+            <PropertyRef Name="UID_TELA_FUNC" />
+          </Key>
+          <Property Name="UID_TELA_FUNC" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TELA_FUNC_DESCRICAO" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="UID_FUNCIONALIDADE" Type="int" Nullable="false" />
+          <Property Name="UID_TELA" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tSegUsuario">
+          <Key>
+            <PropertyRef Name="UID_USUARIO" />
+          </Key>
+          <Property Name="UID_USUARIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="COD_PAIS" Type="int" Nullable="false" />
+          <Property Name="USU_FLG_ATIVO" Type="bit" Nullable="false" />
+          <Property Name="USU_DES_LOCALE" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="USU_NOM_LOGIN" Type="varchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tSegUsuario_tSegPerfil">
+          <Key>
+            <PropertyRef Name="usuario_UID_USUARIO" />
+            <PropertyRef Name="perfil_UID_PERFIL" />
+          </Key>
+          <Property Name="usuario_UID_USUARIO" Type="int" Nullable="false" />
+          <Property Name="perfil_UID_PERFIL" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_4av8mlvms77qcfyjanuqg7pxf">
+          <End Role="tSegTelaFuncionalidade" Type="Self.tSegTelaFuncionalidade" Multiplicity="1" />
+          <End Role="tSegPerfilTelaFuncionalidade" Type="Self.tSegPerfilTelaFuncionalidade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tSegTelaFuncionalidade">
+              <PropertyRef Name="UID_TELA_FUNC" />
+            </Principal>
+            <Dependent Role="tSegPerfilTelaFuncionalidade">
+              <PropertyRef Name="UID_TELA_FUNC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_80wjnxm2khior7ucngy5bh0t2">
+          <End Role="tSegFuncionalidade" Type="Self.tSegFuncionalidade" Multiplicity="1" />
+          <End Role="tSegTelaFuncionalidade" Type="Self.tSegTelaFuncionalidade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tSegFuncionalidade">
+              <PropertyRef Name="UID_FUNCIONALIDADE" />
+            </Principal>
+            <Dependent Role="tSegTelaFuncionalidade">
+              <PropertyRef Name="UID_FUNCIONALIDADE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dh2a7mvw6rkjn1rrd76lugsnn">
+          <End Role="tSegTela" Type="Self.tSegTela" Multiplicity="1" />
+          <End Role="tSegTelaFuncionalidade" Type="Self.tSegTelaFuncionalidade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tSegTela">
+              <PropertyRef Name="UID_TELA" />
+            </Principal>
+            <Dependent Role="tSegTelaFuncionalidade">
+              <PropertyRef Name="UID_TELA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_jjv2b6hi4ivakira5al4rjgnu">
+          <End Role="tSegUsuario" Type="Self.tSegUsuario" Multiplicity="1" />
+          <End Role="tSegUsuario_tSegPerfil" Type="Self.tSegUsuario_tSegPerfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tSegUsuario">
+              <PropertyRef Name="UID_USUARIO" />
+            </Principal>
+            <Dependent Role="tSegUsuario_tSegPerfil">
+              <PropertyRef Name="usuario_UID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mai7rt08d7nma1uvulaxr5ty">
+          <End Role="tSegPerfil" Type="Self.tSegPerfil" Multiplicity="1" />
+          <End Role="tSegPerfilTelaFuncionalidade" Type="Self.tSegPerfilTelaFuncionalidade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tSegPerfil">
+              <PropertyRef Name="UID_PERFIL" />
+            </Principal>
+            <Dependent Role="tSegPerfilTelaFuncionalidade">
+              <PropertyRef Name="UID_PERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rf9l7hvpodh0dpfdnv1v2dmyb">
+          <End Role="tSegPerfil" Type="Self.tSegPerfil" Multiplicity="1" />
+          <End Role="tSegUsuario_tSegPerfil" Type="Self.tSegUsuario_tSegPerfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tSegPerfil">
+              <PropertyRef Name="UID_PERFIL" />
+            </Principal>
+            <Dependent Role="tSegUsuario_tSegPerfil">
+              <PropertyRef Name="perfil_UID_PERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="gpvModel6xStoreContainer">
+          <EntitySet Name="claudiaTeste" EntityType="Self.claudiaTeste" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="martiniTeste" EntityType="Self.martiniTeste" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tFatTarefa" EntityType="Self.tFatTarefa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tSegFuncionalidade" EntityType="Self.tSegFuncionalidade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tSegPerfil" EntityType="Self.tSegPerfil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tSegPerfilTelaFuncionalidade" EntityType="Self.tSegPerfilTelaFuncionalidade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tSegTela" EntityType="Self.tSegTela" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tSegTelaFuncionalidade" EntityType="Self.tSegTelaFuncionalidade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tSegUsuario" EntityType="Self.tSegUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tSegUsuario_tSegPerfil" EntityType="Self.tSegUsuario_tSegPerfil" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_4av8mlvms77qcfyjanuqg7pxf" Association="Self.FK_4av8mlvms77qcfyjanuqg7pxf">
+            <End Role="tSegTelaFuncionalidade" EntitySet="tSegTelaFuncionalidade" />
+            <End Role="tSegPerfilTelaFuncionalidade" EntitySet="tSegPerfilTelaFuncionalidade" />
+          </AssociationSet>
+          <AssociationSet Name="FK_80wjnxm2khior7ucngy5bh0t2" Association="Self.FK_80wjnxm2khior7ucngy5bh0t2">
+            <End Role="tSegFuncionalidade" EntitySet="tSegFuncionalidade" />
+            <End Role="tSegTelaFuncionalidade" EntitySet="tSegTelaFuncionalidade" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dh2a7mvw6rkjn1rrd76lugsnn" Association="Self.FK_dh2a7mvw6rkjn1rrd76lugsnn">
+            <End Role="tSegTela" EntitySet="tSegTela" />
+            <End Role="tSegTelaFuncionalidade" EntitySet="tSegTelaFuncionalidade" />
+          </AssociationSet>
+          <AssociationSet Name="FK_jjv2b6hi4ivakira5al4rjgnu" Association="Self.FK_jjv2b6hi4ivakira5al4rjgnu">
+            <End Role="tSegUsuario" EntitySet="tSegUsuario" />
+            <End Role="tSegUsuario_tSegPerfil" EntitySet="tSegUsuario_tSegPerfil" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mai7rt08d7nma1uvulaxr5ty" Association="Self.FK_mai7rt08d7nma1uvulaxr5ty">
+            <End Role="tSegPerfil" EntitySet="tSegPerfil" />
+            <End Role="tSegPerfilTelaFuncionalidade" EntitySet="tSegPerfilTelaFuncionalidade" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rf9l7hvpodh0dpfdnv1v2dmyb" Association="Self.FK_rf9l7hvpodh0dpfdnv1v2dmyb">
+            <End Role="tSegPerfil" EntitySet="tSegPerfil" />
+            <End Role="tSegUsuario_tSegPerfil" EntitySet="tSegUsuario_tSegPerfil" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="gpvModel6x" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="claudiaTesteEntity">
+          <Key>
+            <PropertyRef Name="idteste" />
+          </Key>
+          <Property Name="idteste" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameTeste" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="martiniTesteEntity">
+          <Key>
+            <PropertyRef Name="idteste" />
+          </Key>
+          <Property Name="idteste" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameTeste" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tFatTarefaEntity">
+          <Key>
+            <PropertyRef Name="UID_TAREFA" />
+          </Key>
+          <Property Name="UID_TAREFA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COD_PAIS" Type="Int32" Nullable="false" />
+          <Property Name="USUARIO_ULTIMA_ALTERACAO" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="data_finalizacao" Type="DateTime" Precision="3" />
+          <Property Name="data_inicio" Type="DateTime" Precision="3" />
+          <Property Name="NOME_TAREFA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tSegFuncionalidadeEntity">
+          <Key>
+            <PropertyRef Name="UID_FUNCIONALIDADE" />
+          </Key>
+          <Property Name="UID_FUNCIONALIDADE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FUN_CHAVE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FUN_DES" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tSegTelaFuncionalidades" Relationship="Self.FK_80wjnxm2khior7ucngy5bh0t2" FromRole="tSegFuncionalidade" ToRole="tSegTelaFuncionalidade" />
+        </EntityType>
+        <EntityType Name="tSegPerfilEntity">
+          <Key>
+            <PropertyRef Name="UID_PERFIL" />
+          </Key>
+          <Property Name="UID_PERFIL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PER_DES" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tSegPerfilTelaFuncionalidades" Relationship="Self.FK_mai7rt08d7nma1uvulaxr5ty" FromRole="tSegPerfil" ToRole="tSegPerfilTelaFuncionalidade" />
+          <NavigationProperty Name="tSegUsuarios" Relationship="Self.tSegUsuario_tSegPerfil" FromRole="tSegPerfil" ToRole="tSegUsuario" />
+        </EntityType>
+        <EntityType Name="tSegPerfilTelaFuncionalidadeEntity">
+          <Key>
+            <PropertyRef Name="UID_PERFIL_TELA_FUNC" />
+          </Key>
+          <Property Name="UID_PERFIL_TELA_FUNC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COD_PAIS" Type="Int32" Nullable="false" />
+          <Property Name="UID_PERFIL" Type="Int32" Nullable="false" />
+          <Property Name="UID_TELA_FUNC" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tSegPerfil" Relationship="Self.FK_mai7rt08d7nma1uvulaxr5ty" FromRole="tSegPerfilTelaFuncionalidade" ToRole="tSegPerfil" />
+          <NavigationProperty Name="tSegTelaFuncionalidade" Relationship="Self.FK_4av8mlvms77qcfyjanuqg7pxf" FromRole="tSegPerfilTelaFuncionalidade" ToRole="tSegTelaFuncionalidade" />
+        </EntityType>
+        <EntityType Name="tSegTelaEntity">
+          <Key>
+            <PropertyRef Name="UID_TELA" />
+          </Key>
+          <Property Name="UID_TELA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TEL_DES_CHAVE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TEL_DES" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TEL_DES_URL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tSegTelaFuncionalidades" Relationship="Self.FK_dh2a7mvw6rkjn1rrd76lugsnn" FromRole="tSegTela" ToRole="tSegTelaFuncionalidade" />
+        </EntityType>
+        <EntityType Name="tSegTelaFuncionalidadeEntity">
+          <Key>
+            <PropertyRef Name="UID_TELA_FUNC" />
+          </Key>
+          <Property Name="UID_TELA_FUNC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TELA_FUNC_DESCRICAO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UID_FUNCIONALIDADE" Type="Int32" Nullable="false" />
+          <Property Name="UID_TELA" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tSegFuncionalidade" Relationship="Self.FK_80wjnxm2khior7ucngy5bh0t2" FromRole="tSegTelaFuncionalidade" ToRole="tSegFuncionalidade" />
+          <NavigationProperty Name="tSegPerfilTelaFuncionalidades" Relationship="Self.FK_4av8mlvms77qcfyjanuqg7pxf" FromRole="tSegTelaFuncionalidade" ToRole="tSegPerfilTelaFuncionalidade" />
+          <NavigationProperty Name="tSegTela" Relationship="Self.FK_dh2a7mvw6rkjn1rrd76lugsnn" FromRole="tSegTelaFuncionalidade" ToRole="tSegTela" />
+        </EntityType>
+        <EntityType Name="tSegUsuarioEntity">
+          <Key>
+            <PropertyRef Name="UID_USUARIO" />
+          </Key>
+          <Property Name="UID_USUARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COD_PAIS" Type="Int32" Nullable="false" />
+          <Property Name="USU_FLG_ATIVO" Type="Boolean" Nullable="false" />
+          <Property Name="USU_DES_LOCALE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="USU_NOM_LOGIN" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tSegPerfils" Relationship="Self.tSegUsuario_tSegPerfil" FromRole="tSegUsuario" ToRole="tSegPerfil" />
+        </EntityType>
+        <Association Name="FK_80wjnxm2khior7ucngy5bh0t2">
+          <End Role="tSegFuncionalidade" Type="gpvModel6x.tSegFuncionalidadeEntity" Multiplicity="1" />
+          <End Role="tSegTelaFuncionalidade" Type="gpvModel6x.tSegTelaFuncionalidadeEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tSegFuncionalidade">
+              <PropertyRef Name="UID_FUNCIONALIDADE" />
+            </Principal>
+            <Dependent Role="tSegTelaFuncionalidade">
+              <PropertyRef Name="UID_FUNCIONALIDADE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mai7rt08d7nma1uvulaxr5ty">
+          <End Role="tSegPerfil" Type="gpvModel6x.tSegPerfilEntity" Multiplicity="1" />
+          <End Role="tSegPerfilTelaFuncionalidade" Type="gpvModel6x.tSegPerfilTelaFuncionalidadeEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tSegPerfil">
+              <PropertyRef Name="UID_PERFIL" />
+            </Principal>
+            <Dependent Role="tSegPerfilTelaFuncionalidade">
+              <PropertyRef Name="UID_PERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_4av8mlvms77qcfyjanuqg7pxf">
+          <End Role="tSegTelaFuncionalidade" Type="gpvModel6x.tSegTelaFuncionalidadeEntity" Multiplicity="1" />
+          <End Role="tSegPerfilTelaFuncionalidade" Type="gpvModel6x.tSegPerfilTelaFuncionalidadeEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tSegTelaFuncionalidade">
+              <PropertyRef Name="UID_TELA_FUNC" />
+            </Principal>
+            <Dependent Role="tSegPerfilTelaFuncionalidade">
+              <PropertyRef Name="UID_TELA_FUNC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dh2a7mvw6rkjn1rrd76lugsnn">
+          <End Role="tSegTela" Type="gpvModel6x.tSegTelaEntity" Multiplicity="1" />
+          <End Role="tSegTelaFuncionalidade" Type="gpvModel6x.tSegTelaFuncionalidadeEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tSegTela">
+              <PropertyRef Name="UID_TELA" />
+            </Principal>
+            <Dependent Role="tSegTelaFuncionalidade">
+              <PropertyRef Name="UID_TELA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tSegUsuario_tSegPerfil">
+          <End Role="tSegUsuario" Type="gpvModel6x.tSegUsuarioEntity" Multiplicity="*" />
+          <End Role="tSegPerfil" Type="gpvModel6x.tSegPerfilEntity" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="gpvEntities6x" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="claudiaTesteEntities" EntityType="gpvModel6x.claudiaTesteEntity" />
+          <EntitySet Name="martiniTesteEntities" EntityType="gpvModel6x.martiniTesteEntity" />
+          <EntitySet Name="tFatTarefaEntities" EntityType="gpvModel6x.tFatTarefaEntity" />
+          <EntitySet Name="tSegFuncionalidadeEntities" EntityType="gpvModel6x.tSegFuncionalidadeEntity" />
+          <EntitySet Name="tSegPerfilEntities" EntityType="gpvModel6x.tSegPerfilEntity" />
+          <EntitySet Name="tSegPerfilTelaFuncionalidadeEntities" EntityType="gpvModel6x.tSegPerfilTelaFuncionalidadeEntity" />
+          <EntitySet Name="tSegTelaEntities" EntityType="gpvModel6x.tSegTelaEntity" />
+          <EntitySet Name="tSegTelaFuncionalidadeEntities" EntityType="gpvModel6x.tSegTelaFuncionalidadeEntity" />
+          <EntitySet Name="tSegUsuarioEntities" EntityType="gpvModel6x.tSegUsuarioEntity" />
+          <AssociationSet Name="FK_80wjnxm2khior7ucngy5bh0t2" Association="Self.FK_80wjnxm2khior7ucngy5bh0t2">
+            <End Role="tSegFuncionalidade" EntitySet="tSegFuncionalidadeEntities" />
+            <End Role="tSegTelaFuncionalidade" EntitySet="tSegTelaFuncionalidadeEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mai7rt08d7nma1uvulaxr5ty" Association="Self.FK_mai7rt08d7nma1uvulaxr5ty">
+            <End Role="tSegPerfil" EntitySet="tSegPerfilEntities" />
+            <End Role="tSegPerfilTelaFuncionalidade" EntitySet="tSegPerfilTelaFuncionalidadeEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_4av8mlvms77qcfyjanuqg7pxf" Association="Self.FK_4av8mlvms77qcfyjanuqg7pxf">
+            <End Role="tSegTelaFuncionalidade" EntitySet="tSegTelaFuncionalidadeEntities" />
+            <End Role="tSegPerfilTelaFuncionalidade" EntitySet="tSegPerfilTelaFuncionalidadeEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dh2a7mvw6rkjn1rrd76lugsnn" Association="Self.FK_dh2a7mvw6rkjn1rrd76lugsnn">
+            <End Role="tSegTela" EntitySet="tSegTelaEntities" />
+            <End Role="tSegTelaFuncionalidade" EntitySet="tSegTelaFuncionalidadeEntities" />
+          </AssociationSet>
+          <AssociationSet Name="tSegUsuario_tSegPerfil" Association="Self.tSegUsuario_tSegPerfil">
+            <End Role="tSegUsuario" EntitySet="tSegUsuarioEntities" />
+            <End Role="tSegPerfil" EntitySet="tSegPerfilEntities" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="gpvModel6xStoreContainer" CdmEntityContainer="gpvEntities6x">
+          <EntitySetMapping Name="claudiaTesteEntities">
+            <EntityTypeMapping TypeName="gpvModel6x.claudiaTesteEntity">
+              <MappingFragment StoreEntitySet="claudiaTeste">
+                <ScalarProperty Name="idteste" ColumnName="idteste" />
+                <ScalarProperty Name="nameTeste" ColumnName="nameTeste" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="martiniTesteEntities">
+            <EntityTypeMapping TypeName="gpvModel6x.martiniTesteEntity">
+              <MappingFragment StoreEntitySet="martiniTeste">
+                <ScalarProperty Name="idteste" ColumnName="idteste" />
+                <ScalarProperty Name="nameTeste" ColumnName="nameTeste" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tFatTarefaEntities">
+            <EntityTypeMapping TypeName="gpvModel6x.tFatTarefaEntity">
+              <MappingFragment StoreEntitySet="tFatTarefa">
+                <ScalarProperty Name="UID_TAREFA" ColumnName="UID_TAREFA" />
+                <ScalarProperty Name="COD_PAIS" ColumnName="COD_PAIS" />
+                <ScalarProperty Name="USUARIO_ULTIMA_ALTERACAO" ColumnName="USUARIO_ULTIMA_ALTERACAO" />
+                <ScalarProperty Name="data_finalizacao" ColumnName="data_finalizacao" />
+                <ScalarProperty Name="data_inicio" ColumnName="data_inicio" />
+                <ScalarProperty Name="NOME_TAREFA" ColumnName="NOME_TAREFA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tSegFuncionalidadeEntities">
+            <EntityTypeMapping TypeName="gpvModel6x.tSegFuncionalidadeEntity">
+              <MappingFragment StoreEntitySet="tSegFuncionalidade">
+                <ScalarProperty Name="UID_FUNCIONALIDADE" ColumnName="UID_FUNCIONALIDADE" />
+                <ScalarProperty Name="FUN_CHAVE" ColumnName="FUN_CHAVE" />
+                <ScalarProperty Name="FUN_DES" ColumnName="FUN_DES" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tSegPerfilEntities">
+            <EntityTypeMapping TypeName="gpvModel6x.tSegPerfilEntity">
+              <MappingFragment StoreEntitySet="tSegPerfil">
+                <ScalarProperty Name="UID_PERFIL" ColumnName="UID_PERFIL" />
+                <ScalarProperty Name="PER_DES" ColumnName="PER_DES" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tSegPerfilTelaFuncionalidadeEntities">
+            <EntityTypeMapping TypeName="gpvModel6x.tSegPerfilTelaFuncionalidadeEntity">
+              <MappingFragment StoreEntitySet="tSegPerfilTelaFuncionalidade">
+                <ScalarProperty Name="UID_PERFIL_TELA_FUNC" ColumnName="UID_PERFIL_TELA_FUNC" />
+                <ScalarProperty Name="COD_PAIS" ColumnName="COD_PAIS" />
+                <ScalarProperty Name="UID_PERFIL" ColumnName="UID_PERFIL" />
+                <ScalarProperty Name="UID_TELA_FUNC" ColumnName="UID_TELA_FUNC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tSegTelaEntities">
+            <EntityTypeMapping TypeName="gpvModel6x.tSegTelaEntity">
+              <MappingFragment StoreEntitySet="tSegTela">
+                <ScalarProperty Name="UID_TELA" ColumnName="UID_TELA" />
+                <ScalarProperty Name="TEL_DES_CHAVE" ColumnName="TEL_DES_CHAVE" />
+                <ScalarProperty Name="TEL_DES" ColumnName="TEL_DES" />
+                <ScalarProperty Name="TEL_DES_URL" ColumnName="TEL_DES_URL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tSegTelaFuncionalidadeEntities">
+            <EntityTypeMapping TypeName="gpvModel6x.tSegTelaFuncionalidadeEntity">
+              <MappingFragment StoreEntitySet="tSegTelaFuncionalidade">
+                <ScalarProperty Name="UID_TELA_FUNC" ColumnName="UID_TELA_FUNC" />
+                <ScalarProperty Name="TELA_FUNC_DESCRICAO" ColumnName="TELA_FUNC_DESCRICAO" />
+                <ScalarProperty Name="UID_FUNCIONALIDADE" ColumnName="UID_FUNCIONALIDADE" />
+                <ScalarProperty Name="UID_TELA" ColumnName="UID_TELA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tSegUsuarioEntities">
+            <EntityTypeMapping TypeName="gpvModel6x.tSegUsuarioEntity">
+              <MappingFragment StoreEntitySet="tSegUsuario">
+                <ScalarProperty Name="UID_USUARIO" ColumnName="UID_USUARIO" />
+                <ScalarProperty Name="COD_PAIS" ColumnName="COD_PAIS" />
+                <ScalarProperty Name="USU_FLG_ATIVO" ColumnName="USU_FLG_ATIVO" />
+                <ScalarProperty Name="USU_DES_LOCALE" ColumnName="USU_DES_LOCALE" />
+                <ScalarProperty Name="USU_NOM_LOGIN" ColumnName="USU_NOM_LOGIN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="tSegUsuario_tSegPerfil" TypeName="gpvModel6x.tSegUsuario_tSegPerfil" StoreEntitySet="tSegUsuario_tSegPerfil">
+            <EndProperty Name="tSegUsuario">
+              <ScalarProperty Name="UID_USUARIO" ColumnName="usuario_UID_USUARIO" />
+            </EndProperty>
+            <EndProperty Name="tSegPerfil">
+              <ScalarProperty Name="UID_PERFIL" ColumnName="perfil_UID_PERFIL" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

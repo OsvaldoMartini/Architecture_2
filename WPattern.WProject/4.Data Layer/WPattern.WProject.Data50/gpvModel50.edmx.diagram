@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="479f0bc0d06743fa88c32d31ecc77880" Name="Diagram1">
+        <EntityTypeShape EntityType="gpvModel50.claudiaTesteEntity" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="gpvModel50.martiniTesteEntity" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="gpvModel50.tFatTarefaEntity" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="gpvModel50.tSegFuncionalidadeEntity" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="gpvModel50.tSegPerfilEntity" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="gpvModel50.tSegPerfilTelaFuncionalidadeEntity" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="gpvModel50.tSegTelaEntity" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="gpvModel50.tSegTelaFuncionalidadeEntity" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="gpvModel50.tSegUsuarioEntity" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
+        <AssociationConnector Association="gpvModel50.FK_80wjnxm2khior7ucngy5bh0t2" ManuallyRouted="false" />
+        <AssociationConnector Association="gpvModel50.FK_mai7rt08d7nma1uvulaxr5ty" ManuallyRouted="false" />
+        <AssociationConnector Association="gpvModel50.FK_4av8mlvms77qcfyjanuqg7pxf" ManuallyRouted="false" />
+        <AssociationConnector Association="gpvModel50.FK_dh2a7mvw6rkjn1rrd76lugsnn" ManuallyRouted="false" />
+        <AssociationConnector Association="gpvModel50.tSegUsuario_tSegPerfil" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
